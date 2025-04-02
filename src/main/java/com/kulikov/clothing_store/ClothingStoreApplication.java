@@ -1,6 +1,5 @@
 package com.kulikov.clothing_store;
 
-import com.kulikov.clothing_store.services.TableFiller;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -8,7 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ClothingStoreApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ClothingStoreApplication.class, args);
+		SpringApplication app = new SpringApplication(ClothingStoreApplication.class);
+		app.setAdditionalProfiles("filler");
+		app.run(args);
+		//SpringApplication.run(ClothingStoreApplication.class, args);
 	}
 
 }

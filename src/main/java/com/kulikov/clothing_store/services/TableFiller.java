@@ -6,6 +6,7 @@ import com.kulikov.clothing_store.repository.ClothingMaterialProcessRepository;
 import com.kulikov.clothing_store.repository.ClothingRepository;
 import com.kulikov.clothing_store.repository.MaterialRepository;
 import com.kulikov.clothing_store.repository.WorkingProcessRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
@@ -25,6 +26,8 @@ public class TableFiller implements CommandLineRunner {
     private final ClothingMaterialProcessRepository cmpRepository;
     private final Faker faker;
 
+    @Transactional
+    @Override
     public void run(String... args) throws Exception {
         if (clothingRepository.count() == 0) {
             List<Material> materials = new ArrayList<>();
@@ -99,8 +102,5 @@ public class TableFiller implements CommandLineRunner {
         } else {
             System.out.println("Database already contains data, skipping filling.");
         }
-
-        // Завершаем работу приложения после заполнения
-        System.exit(0);
     }
 }

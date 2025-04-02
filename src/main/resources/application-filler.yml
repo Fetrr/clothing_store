@@ -1,6 +1,7 @@
 spring:
-  profiles:
-    active=filler
+  config:
+    activate:
+      on-profile: "filler"
   application:
     name:clothing_store_filler;
   datasource:
@@ -10,7 +11,7 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
@@ -19,4 +20,4 @@ spring:
         format-sql: true
 app:
   filler:
-    enabled=true
+    enabled: true
