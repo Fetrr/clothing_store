@@ -11,7 +11,7 @@
 	<groupId>com.kulikov</groupId>
 	<artifactId>clothing_store</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>clothing_store</name>
 	<description>project for Spring boot</description>
 	<url/>
@@ -58,7 +58,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -70,6 +69,10 @@
 			<artifactId>lombok</artifactId>
 			<version>1.18.38</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 	</dependencies>
 

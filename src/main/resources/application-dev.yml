@@ -1,6 +1,9 @@
 spring:
+  config:
+    activate:
+      on-profile: "dev"
   application:
-    name: clothing_store;
+    name:clothing_store;
   datasource:
     url: jdbc:postgresql://localhost:5432/clothing_store_db
     username: postgres
@@ -15,3 +18,11 @@ spring:
     properties:
       hibernate:
         format-sql: true
+  thymeleaf:
+    check-template-location: true
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+    mode: HTML
+server:
+  port: 8080
