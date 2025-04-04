@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Список одежды</title>
+    <title>Рабочие процессы</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .hero-section {
@@ -30,13 +30,6 @@
             background: #f8f9fa;
             color: #1a5fd6;
         }
-        .file-link {
-            text-decoration: none;
-            color: #2575fc;
-        }
-        .file-link:hover {
-            text-decoration: underline;
-        }
         .table th {
             background-color: #2575fc;
             color: white;
@@ -55,7 +48,7 @@
 <section class="hero-section">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center">
-            <h1 class="display-6 fw-bold mb-0">Список одежды</h1>
+            <h1 class="display-6 fw-bold mb-0">Рабочие процессы</h1>
             <a href="/" class="btn btn-back">
                 <i class="bi bi-arrow-left"></i> На главную
             </a>
@@ -73,39 +66,16 @@
                     <tr>
                         <th>ID</th>
                         <th>Название</th>
-                        <th>Размеры</th>
-                        <th>Фото</th>
-                        <th>Выкройки</th>
+                        <th>Длительность</th>
+                        <th>Инструменты</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="item : ${clothingPage.content}">
+                    <tr th:each="item : ${workingProcessesPage.content}">
                         <td th:text="${item.id}"></td>
                         <td th:text="${item.name}"></td>
-                        <td>
-                            <div th:if="${item.sizes != null and not item.sizes.isEmpty()}">
-                                <span th:each="size, iterStat : ${item.sizes}"
-                                      th:text="${size + (iterStat.last ? '' : ', ')}"></span>
-                            </div>
-                        </td>
-                        <td>
-                            <div th:if="${item.photos != null and not item.photos.isEmpty()}">
-                                <a th:each="photo, iterStat : ${item.photos}"
-                                   th:href="${photo}"
-                                   th:text="${photo.split('/')[photo.split('/').length-1] + (iterStat.last ? '' : ', ')}"
-                                   class="file-link"
-                                   target="_blank"></a>
-                            </div>
-                        </td>
-                        <td>
-                            <div th:if="${item.patterns != null and not item.patterns.isEmpty()}">
-                                <a th:each="pattern, iterStat : ${item.patterns}"
-                                   th:href="${pattern}"
-                                   th:text="${pattern.split('/')[pattern.split('/').length-1] + (iterStat.last ? '' : ', ')}"
-                                   class="file-link"
-                                   target="_blank"></a>
-                            </div>
-                        </td>
+                        <td th:text="${item.duration}"></td>
+                        <td th:text="${#strings.listJoin(item.instruments, ', ')}"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -116,59 +86,59 @@
                 <nav aria-label="Page navigation">
                     <ul class="pagination">
                         <!-- Первая страница -->
-                        <li class="page-item" th:classappend="${clothingPage.first} ? 'disabled' : ''">
-                            <a class="page-link" th:href="@{/clothing(page=0, size=${clothingPage.size})}">Первая</a>
+                        <li class="page-item" th:classappend="${workingProcessesPage.first} ? 'disabled' : ''">
+                            <a class="page-link" th:href="@{/working_processes(page=0, size=${workingProcessesPage.size})}">Первая</a>
                         </li>
 
                         <!-- Предыдущая страница -->
-                        <li class="page-item" th:classappend="${clothingPage.first} ? 'disabled' : ''">
+                        <li class="page-item" th:classappend="${workingProcessesPage.first} ? 'disabled' : ''">
                             <a class="page-link"
-                               th:href="@{/clothing(page=${clothingPage.number - 1}, size=${clothingPage.size})}">
+                               th:href="@{/working_processes(page=${workingProcessesPage.number - 1}, size=${workingProcessesPage.size})}">
                                 &laquo;
                             </a>
                         </li>
 
                         <!-- Ближайшие страницы -->
                         <li th:each="i : ${#numbers.sequence(
-                T(java.lang.Math).max(0, clothingPage.number - 2),
-                T(java.lang.Math).min(clothingPage.number + 2, clothingPage.totalPages - 1)
-            )}"
-                            class="page-item" th:classappend="${i == clothingPage.number} ? 'active' : ''">
+                    T(java.lang.Math).max(0, workingProcessesPage.number - 2),
+                    T(java.lang.Math).min(workingProcessesPage.number + 2, workingProcessesPage.totalPages - 1)
+                )}"
+                            class="page-item" th:classappend="${i == workingProcessesPage.number} ? 'active' : ''">
                             <a class="page-link"
-                               th:href="@{/clothing(page=${i}, size=${clothingPage.size})}"
+                               th:href="@{/working_processes(page=${i}, size=${workingProcessesPage.size})}"
                                th:text="${i + 1}"></a>
                         </li>
 
                         <!-- Троеточие (если нужно) -->
                         <li class="page-item disabled"
-                            th:if="${clothingPage.totalPages > 5 and clothingPage.number < clothingPage.totalPages - 3}">
+                            th:if="${workingProcessesPage.totalPages > 5 and workingProcessesPage.number < workingProcessesPage.totalPages - 3}">
                             <span class="page-link">...</span>
                         </li>
 
                         <!-- Последние страницы (если нужно) -->
                         <li th:each="i : ${#numbers.sequence(
-                T(java.lang.Math).max(clothingPage.totalPages - 3, clothingPage.number + 3),
-                clothingPage.totalPages - 1
-            )}"
-                            th:if="${clothingPage.totalPages > 5 and clothingPage.number < clothingPage.totalPages - 3}"
+                    T(java.lang.Math).max(workingProcessesPage.totalPages - 3, workingProcessesPage.number + 3),
+                    workingProcessesPage.totalPages - 1
+                )}"
+                            th:if="${workingProcessesPage.totalPages > 5 and workingProcessesPage.number < workingProcessesPage.totalPages - 3}"
                             class="page-item">
                             <a class="page-link"
-                               th:href="@{/clothing(page=${i}, size=${clothingPage.size})}"
+                               th:href="@{/working_processes(page=${i}, size=${workingProcessesPage.size})}"
                                th:text="${i + 1}"></a>
                         </li>
 
                         <!-- Следующая страница -->
-                        <li class="page-item" th:classappend="${clothingPage.last} ? 'disabled' : ''">
+                        <li class="page-item" th:classappend="${workingProcessesPage.last} ? 'disabled' : ''">
                             <a class="page-link"
-                               th:href="@{/clothing(page=${clothingPage.number + 1}, size=${clothingPage.size})}">
+                               th:href="@{/working_processes(page=${workingProcessesPage.number + 1}, size=${workingProcessesPage.size})}">
                                 &raquo;
                             </a>
                         </li>
 
                         <!-- Последняя страница -->
-                        <li class="page-item" th:classappend="${clothingPage.last} ? 'disabled' : ''">
+                        <li class="page-item" th:classappend="${workingProcessesPage.last} ? 'disabled' : ''">
                             <a class="page-link"
-                               th:href="@{/clothing(page=${clothingPage.totalPages - 1}, size=${clothingPage.size})}">
+                               th:href="@{/working_processes(page=${workingProcessesPage.totalPages - 1}, size=${workingProcessesPage.size})}">
                                 Последняя
                             </a>
                         </li>
@@ -179,11 +149,11 @@
             <!-- Выбор количества элементов на странице -->
             <div class="mt-3 text-center">
                 <span>Элементов на странице:</span>
-                <a class="text-primary" th:href="@{/clothing(page=0, size=5)}">5</a> |
-                <a class="text-primary" th:href="@{/clothing(page=0, size=10)}">10</a> |
-                <a class="text-primary" th:href="@{/clothing(page=0, size=20)}">20</a> |
-                <a class="text-primary" th:href="@{/clothing(page=0, size=50)}">50</a> |
-                <a class="text-primary" th:href="@{/clothing(page=0, size=100)}">100</a>
+                <a class="text-primary" th:href="@{/working_processes(page=0, size=5)}">5</a> |
+                <a class="text-primary" th:href="@{/working_processes(page=0, size=10)}">10</a> |
+                <a class="text-primary" th:href="@{/working_processes(page=0, size=20)}">20</a> |
+                <a class="text-primary" th:href="@{/working_processes(page=0, size=50)}">50</a> |
+                <a class="text-primary" th:href="@{/working_processes(page=0, size=100)}">100</a>
             </div>
         </div>
     </div>

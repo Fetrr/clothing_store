@@ -52,12 +52,12 @@ public class TableFiller implements CommandLineRunner {
             List<WorkingProcess> processes = new ArrayList<>();
             for (int i = 0; i < 1000; i++) {
                 WorkingProcess process = new WorkingProcess();
-                process.setName(faker.job().title() + "process");
+                process.setName(faker.job().title() + "_process");
                 process.setDuration(faker.number().numberBetween(10, 120));
                 process.setInstruments(
                         List.of(
-                                faker.lorem().word() + "instrument",
-                                faker.lorem().word() + "instrument"
+                                faker.lorem().word() + "_instrument",
+                                faker.lorem().word() + "_instrument"
                         ));
                 processes.add(workingProcessRepository.save(process));
             }
