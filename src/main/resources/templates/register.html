@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="auth-container">
+    <h1>Регистрация</h1>
+    <form th:action="@{/auth/register}" method="post" th:object="${user}">
+        <input type="text" th:field="*{username}" placeholder="Имя пользователя" required>
+        <input type="email" th:field="*{email}" placeholder="Email" required>
+        <input type="password" th:field="*{password}" placeholder="Пароль" required>
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+    <a th:href="@{/auth/login}">Уже есть аккаунт? Войдите</a>
+</div>
+</body>
+</html>

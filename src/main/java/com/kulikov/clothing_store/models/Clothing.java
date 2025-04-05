@@ -36,4 +36,7 @@ public class Clothing {
 
     @OneToMany(mappedBy = "clothing", cascade = CascadeType.ALL)
     private List<ClothingMaterialProcess> materialProcesses = new ArrayList<>();
+
+    @OneToMany(mappedBy = "clothing", cascade = CascadeType.ALL)
+    private List<UserClothing> usersList = new ArrayList<>();
 }
